@@ -10,7 +10,11 @@ form.addEventListener('submit', function(e) {
     const taskText = input.value.trim();
     if (taskText) {
         const li = document.createElement('li');
-        li.textContent = taskText;
+        const span = document.createElement('span');
+        span.className = 'task-text';
+        span.textContent = taskText;
+        li.appendChild(span);
+
         const delBtn = document.createElement('button');
         delBtn.textContent = 'Delete';
         delBtn.className = 'delete-btn';
@@ -24,9 +28,10 @@ form.addEventListener('submit', function(e) {
             checkbox.type = 'checkbox';
             checkbox.className = 'recycle-checkbox';
             recycledLi.appendChild(checkbox);
-            const span = document.createElement('span');
-            span.textContent = taskText;
-            recycledLi.appendChild(span);
+            const recycledSpan = document.createElement('span');
+            recycledSpan.className = 'task-text';
+            recycledSpan.textContent = span.textContent;
+            recycledLi.appendChild(recycledSpan);
             recycledList.appendChild(recycledLi);
             // Add event for custom order
             checkbox.addEventListener('change', function() {
@@ -67,7 +72,11 @@ restoreBtn.addEventListener('click', function() {
     }
     recycledItems.forEach(function(item) {
         const restoredLi = document.createElement('li');
-        restoredLi.textContent = item.querySelector('span').textContent;
+        const span = document.createElement('span');
+        span.className = 'task-text';
+        span.textContent = item.querySelector('.task-text').textContent;
+        restoredLi.appendChild(span);
+
         const delBtn = document.createElement('button');
         delBtn.textContent = 'Delete';
         delBtn.className = 'delete-btn';
@@ -80,9 +89,10 @@ restoreBtn.addEventListener('click', function() {
             checkbox.type = 'checkbox';
             checkbox.className = 'recycle-checkbox';
             recycledLi.appendChild(checkbox);
-            const span = document.createElement('span');
-            span.textContent = restoredLi.textContent;
-            recycledLi.appendChild(span);
+            const recycledSpan = document.createElement('span');
+            recycledSpan.className = 'task-text';
+            recycledSpan.textContent = span.textContent;
+            recycledLi.appendChild(recycledSpan);
             recycledList.appendChild(recycledLi);
             // Add event for custom order
             checkbox.addEventListener('change', function() {
