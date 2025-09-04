@@ -2,7 +2,7 @@ const form = document.getElementById('task-form');
 const input = document.getElementById('task-input');
 const list = document.getElementById('task-list');
 const resetBtn = document.getElementById('reset-btn');
-const recycledList = document.getElementById('recycled-list');
+const recycleList = document.getElementById('recycled-list'); // No change needed, ul remains 'recycled-list'
 const restoreBtn = document.getElementById('restore-btn');
 
 form.addEventListener('submit', function(e) {
@@ -19,7 +19,7 @@ form.addEventListener('submit', function(e) {
         delBtn.textContent = 'Delete';
         delBtn.className = 'delete-btn';
         delBtn.onclick = function() {
-            // Moves the deleted task into the recycler bin
+            // Moves the deleted task into the recycle bin
             list.removeChild(li);
             const recycledLi = document.createElement('li');
             recycledLi.className = 'recycled-task';
@@ -32,7 +32,7 @@ form.addEventListener('submit', function(e) {
             recycledSpan.className = 'task-text';
             recycledSpan.textContent = span.textContent;
             recycledLi.appendChild(recycledSpan);
-            recycledList.appendChild(recycledLi);
+            recycleList.appendChild(recycledLi);
             // Add event for custom order
             checkbox.addEventListener('change', function() {
                 if (checkbox.checked) {
@@ -50,7 +50,7 @@ form.addEventListener('submit', function(e) {
 
 restoreBtn.addEventListener('click', function() {
     const mode = document.getElementById('restore-mode-select').value;
-    let recycledItems = Array.from(recycledList.querySelectorAll('li'));
+    let recycledItems = Array.from(recycleList.querySelectorAll('li'));
     // Only keep checked
     recycledItems = recycledItems.filter(item => {
         const checkbox = item.querySelector('input[type="checkbox"]');
@@ -81,7 +81,7 @@ restoreBtn.addEventListener('click', function() {
         delBtn.textContent = 'Delete';
         delBtn.className = 'delete-btn';
         delBtn.onclick = function() {
-            // Moves the deleted task into the recycler bin
+            // Moves the deleted task into the recycle bin
             list.removeChild(restoredLi);
             const recycledLi = document.createElement('li');
             recycledLi.className = 'recycled-task';
@@ -93,7 +93,7 @@ restoreBtn.addEventListener('click', function() {
             recycledSpan.className = 'task-text';
             recycledSpan.textContent = span.textContent;
             recycledLi.appendChild(recycledSpan);
-            recycledList.appendChild(recycledLi);
+            recycleList.appendChild(recycledLi);
             // Add event for custom order
             checkbox.addEventListener('change', function() {
                 if (checkbox.checked) {
@@ -105,10 +105,11 @@ restoreBtn.addEventListener('click', function() {
         };
         restoredLi.appendChild(delBtn);
         list.appendChild(restoredLi);
-        recycledList.removeChild(item);
+        recycleList.removeChild(item);
     });
 });
 
 resetBtn.addEventListener('click', function() {
     list.innerHTML = '';
+    recycleList.innerHTML = '';
 });
